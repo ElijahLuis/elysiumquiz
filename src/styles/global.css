@@ -1,0 +1,830 @@
+/* CSS Variables */
+:root {
+  /* Realm colors */
+  --abyss: #bf9dff;
+  --cavern: #9ef2e3;
+  --dross: #f0c9b3;
+  --ember: #ffb194;
+  --glare: #ffd96a;
+  --languish: #86bfff;
+  --mist: #cfe8f8;
+  --oasis: #76ffe5;
+  --trace: #ffa3c0;
+  --zenith: #ffeba3;
+
+  /* Base colors */
+  --bg-dark: #0a0a0f;
+  --bg-card: #14141f;
+  --bg-elevated: #1a1a2e;
+  --text-primary: #f0f0f5;
+  --text-secondary: #a0a0b0;
+  --text-muted: #606070;
+  --border-color: #2a2a3e;
+
+  /* Typography */
+  --font-display: 'Cinzel', serif;
+  --font-body: 'Raleway', sans-serif;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 300ms ease;
+  --transition-slow: 500ms ease;
+}
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* App Container */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Welcome Page */
+.welcome-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+  background: radial-gradient(ellipse at center, #1a1a2e 0%, var(--bg-dark) 100%);
+}
+
+.welcome-content {
+  text-align: center;
+  max-width: 600px;
+}
+
+.welcome-title {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-xs);
+  background: linear-gradient(135deg, var(--oasis), var(--mist), var(--trace));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.welcome-subtitle {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-lg);
+  letter-spacing: 0.1em;
+}
+
+.welcome-description {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-lg);
+  line-height: 1.8;
+}
+
+.welcome-realms-preview {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xl);
+}
+
+.realm-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  opacity: 0.8;
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+}
+
+.realm-dot:hover {
+  transform: scale(1.5);
+  opacity: 1;
+}
+
+.start-button {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  padding: var(--spacing-sm) var(--spacing-xl);
+  background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+  border: 1px solid var(--border-color);
+  border-radius: 50px;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.start-button:hover {
+  border-color: var(--oasis);
+  box-shadow: 0 0 20px rgba(118, 255, 229, 0.2);
+  transform: translateY(-2px);
+}
+
+.welcome-time {
+  margin-top: var(--spacing-md);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* Quiz Page */
+.quiz-page {
+  min-height: 100vh;
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--bg-dark);
+}
+
+/* Progress Bar */
+.progress-container {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: var(--spacing-xl);
+}
+
+.progress-text {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: var(--spacing-xs);
+}
+
+.progress-bar {
+  height: 4px;
+  background: var(--bg-elevated);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--oasis), var(--mist));
+  border-radius: 2px;
+  transition: width var(--transition-normal);
+}
+
+/* Question Card */
+.question-card {
+  width: 100%;
+  max-width: 600px;
+  animation: fadeIn var(--transition-slow);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.question-type {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-sm);
+}
+
+.question-text {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.5;
+  margin-bottom: var(--spacing-lg);
+  color: var(--text-primary);
+}
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+/* Answer Option */
+.answer-option {
+  width: 100%;
+  padding: var(--spacing-md);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.answer-option:hover {
+  background: var(--bg-elevated);
+  border-color: var(--text-muted);
+  transform: translateX(4px);
+}
+
+.answer-option.selected {
+  border-color: var(--oasis);
+  background: rgba(118, 255, 229, 0.1);
+}
+
+/* Slider */
+.slider-container {
+  padding: var(--spacing-lg) 0;
+}
+
+.slider-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-md);
+}
+
+.slider-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  max-width: 45%;
+}
+
+.slider-label.left {
+  text-align: left;
+}
+
+.slider-label.right {
+  text-align: right;
+}
+
+.slider-input {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--bg-elevated);
+  appearance: none;
+  cursor: pointer;
+}
+
+.slider-input::-webkit-slider-thumb {
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--oasis);
+  cursor: grab;
+  transition: transform var(--transition-fast);
+}
+
+.slider-input::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.slider-value {
+  text-align: center;
+  margin-top: var(--spacing-sm);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.slider-confirm {
+  display: block;
+  margin: var(--spacing-md) auto 0;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.slider-confirm:hover {
+  border-color: var(--oasis);
+}
+
+/* Back Button */
+.back-button {
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-xs) var(--spacing-md);
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.back-button:hover {
+  color: var(--text-primary);
+}
+
+/* Realm Reveal */
+.realm-reveal {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+  background: var(--bg-dark);
+  opacity: 0;
+  transition: opacity var(--transition-slow);
+}
+
+.realm-reveal.revealed {
+  opacity: 1;
+  background: radial-gradient(ellipse at center, color-mix(in srgb, var(--realm-color) 20%, var(--bg-dark)) 0%, var(--bg-dark) 100%);
+}
+
+.reveal-content {
+  text-align: center;
+  max-width: 500px;
+}
+
+.reveal-quote {
+  font-style: italic;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-md);
+  font-size: 1.2rem;
+}
+
+.reveal-realm-name {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--realm-color);
+  margin-bottom: var(--spacing-sm);
+  text-shadow: 0 0 40px var(--realm-color);
+}
+
+.reveal-confidence {
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-xl);
+  font-size: 1rem;
+}
+
+.reveal-continue {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  padding: var(--spacing-sm) var(--spacing-xl);
+  background: var(--realm-color);
+  border: none;
+  border-radius: 50px;
+  color: var(--bg-dark);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.reveal-continue:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px var(--realm-color);
+}
+
+/* Registration */
+.registration-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+  background: radial-gradient(ellipse at center, color-mix(in srgb, var(--realm-color) 15%, var(--bg-dark)) 0%, var(--bg-dark) 100%);
+}
+
+.registration-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.registration-header h2 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--realm-color);
+  margin-bottom: var(--spacing-xs);
+}
+
+.registration-header p {
+  color: var(--text-secondary);
+}
+
+.registration-form {
+  width: 100%;
+  max-width: 400px;
+}
+
+.form-group {
+  margin-bottom: var(--spacing-md);
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: var(--spacing-xs);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: var(--spacing-sm);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  transition: border-color var(--transition-fast);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--realm-color);
+}
+
+.form-group input::placeholder {
+  color: var(--text-muted);
+}
+
+.form-error {
+  color: var(--ember);
+  font-size: 0.85rem;
+  margin-top: var(--spacing-xs);
+}
+
+.form-hint {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  margin-top: var(--spacing-xs);
+}
+
+.registration-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-lg);
+}
+
+.register-button {
+  width: 100%;
+  padding: var(--spacing-sm);
+  background: var(--realm-color);
+  border: none;
+  border-radius: 8px;
+  color: var(--bg-dark);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.register-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.skip-button {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.skip-button:hover {
+  color: var(--text-primary);
+}
+
+/* Results Page */
+.results-page {
+  min-height: 100vh;
+  padding: var(--spacing-lg);
+  background: radial-gradient(ellipse at top, color-mix(in srgb, var(--realm-color) 15%, var(--bg-dark)) 0%, var(--bg-dark) 50%);
+}
+
+.results-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.results-greeting {
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.results-title {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--realm-color);
+}
+
+.results-cards {
+  max-width: 800px;
+  margin: 0 auto var(--spacing-xl);
+}
+
+/* Realm Cards */
+.realm-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+}
+
+.realm-card-primary {
+  border-color: var(--realm-color);
+  border-width: 2px;
+}
+
+.realm-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.realm-card-name {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--realm-color);
+}
+
+.realm-card-score {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+}
+
+.realm-card-quote {
+  font-style: italic;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-md);
+}
+
+.realm-card-lore {
+  color: var(--text-primary);
+  line-height: 1.7;
+  margin-bottom: var(--spacing-md);
+}
+
+.realm-card-emotions {
+  margin-bottom: var(--spacing-sm);
+}
+
+.emotions-label,
+.tone-label {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.emotions-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-xs);
+}
+
+.emotion-tag {
+  padding: 4px 12px;
+  background: var(--bg-elevated);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.realm-card-tone {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* Secondary Realms */
+.secondary-realms {
+  margin-top: var(--spacing-lg);
+}
+
+.secondary-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-md);
+}
+
+.secondary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.realm-card-secondary,
+.realm-card-tertiary {
+  padding: var(--spacing-md);
+}
+
+.realm-card-secondary .realm-card-name,
+.realm-card-tertiary .realm-card-name {
+  font-size: 1.2rem;
+}
+
+/* Affinity Chart */
+.results-affinity {
+  max-width: 600px;
+  margin: 0 auto var(--spacing-xl);
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: var(--spacing-lg);
+}
+
+.results-affinity h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  margin-bottom: var(--spacing-md);
+  color: var(--text-primary);
+}
+
+.affinity-bars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.affinity-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.affinity-name {
+  width: 80px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.affinity-bar-container {
+  flex: 1;
+  height: 8px;
+  background: var(--bg-elevated);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.affinity-bar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width var(--transition-normal);
+}
+
+.affinity-score {
+  width: 40px;
+  text-align: right;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Results Actions */
+.results-actions {
+  text-align: center;
+}
+
+.restart-button {
+  padding: var(--spacing-sm) var(--spacing-xl);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.restart-button:hover {
+  border-color: var(--text-muted);
+}
+
+/* Results Insights */
+.results-insights {
+  max-width: 700px;
+  margin: var(--spacing-xl) auto;
+  padding: var(--spacing-lg);
+  text-align: center;
+}
+
+.insights-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--realm-color);
+  margin-bottom: var(--spacing-md);
+}
+
+.insights-text {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-primary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Results Insights Sections */
+.insights-strengths,
+.insights-challenges {
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-md);
+  background: var(--bg-elevated);
+  border-radius: 12px;
+}
+
+.insights-section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-primary);
+}
+
+.insights-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.insights-list li {
+  padding: var(--spacing-xs) 0;
+  padding-left: var(--spacing-sm);
+  position: relative;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.insights-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--realm-color);
+  font-weight: bold;
+}
+
+/* Signup Prompt */
+.results-signup {
+  margin-top: var(--spacing-md);
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.signup-link {
+  color: var(--realm-color);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.signup-link:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .welcome-title {
+    font-size: 2.5rem;
+  }
+
+  .question-text {
+    font-size: 1.25rem;
+  }
+
+  .reveal-realm-name {
+    font-size: 3rem;
+  }
+
+  .results-title {
+    font-size: 2rem;
+  }
+
+  .affinity-name {
+    width: 60px;
+    font-size: 0.75rem;
+  }
+}
