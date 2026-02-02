@@ -52,6 +52,7 @@ export function ResultsPage({ result, user, onRestart }: ResultsPageProps) {
       </div>
 
       <div className="results-insights">
+        <h3 className="insights-label">Your Title:</h3>
         <h2 className="insights-title">{trioInsight.title}</h2>
         <p className="insights-text">{trioInsight.insight}</p>
         

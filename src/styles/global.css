@@ -216,7 +216,7 @@ body {
 .question-text {
   font-family: var(--font-display);
   font-size: 1.5rem;
-  font-weight: 400;
+  font-weight: 700;
   line-height: 1.5;
   margin-bottom: var(--spacing-lg);
   color: var(--text-primary);
@@ -731,16 +731,26 @@ body {
   text-align: center;
 }
 
+.insights-label {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
 .insights-title {
   font-family: var(--font-display);
-  font-size: 1.8rem;
+  font-size: 2.5rem;
   font-weight: 700;
   color: var(--realm-color);
   margin-bottom: var(--spacing-md);
 }
 
 .insights-text {
-  font-size: 1rem;
+  font-size: 1.2rem;
   line-height: 1.8;
   color: var(--text-primary);
   max-width: 600px;
@@ -821,6 +831,14 @@ body {
 
   .results-title {
     font-size: 2rem;
+  }
+
+  .insights-title {
+    font-size: 2rem;
+  }
+
+  .insights-text {
+    font-size: 1.1rem;
   }
 
   .affinity-name {
