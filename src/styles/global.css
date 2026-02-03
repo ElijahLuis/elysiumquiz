@@ -36,6 +36,14 @@
   --transition-fast: 150ms ease;
   --transition-normal: 300ms ease;
   --transition-slow: 500ms ease;
+
+  /* Animated Background */
+  --animation-gradient-duration: 80s;
+  --animation-particle-duration-fast: 25s;
+  --animation-particle-duration-slow: 40s;
+  --particle-opacity: 0.15;
+  --gradient-intensity: 12%;
+  --particle-blur: 2px;
 }
 
 /* Reset */
@@ -66,12 +74,26 @@ body {
 
 /* Welcome Page */
 .welcome-page {
+  position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: var(--spacing-lg);
-  background: radial-gradient(ellipse at center, #1a1a2e 0%, var(--bg-dark) 100%);
+  background:
+    radial-gradient(
+      ellipse 800px 600px at 40% 50%,
+      color-mix(in srgb, var(--oasis) var(--gradient-intensity), transparent) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse 800px 600px at 60% 50%,
+      color-mix(in srgb, var(--mist) var(--gradient-intensity), transparent) 0%,
+      transparent 50%
+    ),
+    var(--bg-dark);
+  background-size: 200% 200%;
+  animation: gradientShift var(--animation-gradient-duration) ease-in-out infinite;
 }
 
 .welcome-content {
@@ -151,12 +173,21 @@ body {
 
 /* Quiz Page */
 .quiz-page {
+  position: relative;
   min-height: 100vh;
   padding: var(--spacing-lg);
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: var(--bg-dark);
+  background:
+    radial-gradient(
+      ellipse 1000px 800px at 30% 40%,
+      color-mix(in srgb, var(--text-muted) 8%, transparent) 0%,
+      transparent 60%
+    ),
+    var(--bg-dark);
+  background-size: 250% 250%;
+  animation: gradientShift 100s ease-in-out infinite;
 }
 
 /* Progress Bar */
@@ -203,6 +234,94 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 50% 25%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  75% {
+    background-position: 50% 75%;
+  }
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--particle-opacity);
+  }
+  50% {
+    transform: translate(var(--drift-x, 30px), -100vh) scale(1.2);
+    opacity: var(--particle-opacity);
+  }
+  90% {
+    opacity: var(--particle-opacity);
+  }
+  100% {
+    transform: translate(var(--drift-x, 30px), -120vh) scale(0.8);
+    opacity: 0;
+  }
+}
+
+@keyframes particleFloatAlt {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: var(--particle-opacity);
+  }
+  50% {
+    transform: translate(var(--drift-x, -40px), -100vh) rotate(180deg);
+    opacity: calc(var(--particle-opacity) * 0.8);
+  }
+  85% {
+    opacity: var(--particle-opacity);
+  }
+  100% {
+    transform: translate(var(--drift-x, -40px), -120vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Particle System */
+.particle-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  width: var(--size, 6px);
+  height: var(--size, 6px);
+  left: var(--left, 50%);
+  top: var(--top, 100%);
+  border-radius: 50%;
+  opacity: var(--particle-opacity, 0.15);
+  filter: blur(var(--particle-blur));
+  pointer-events: none;
+}
+
+.particle-float {
+  animation: particleFloat var(--duration, 30s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+.particle-floatAlt {
+  animation: particleFloatAlt var(--duration, 35s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
 }
 
 .question-type {
@@ -355,8 +474,22 @@ body {
 }
 
 .realm-reveal.revealed {
+  position: relative;
   opacity: 1;
-  background: radial-gradient(ellipse at center, color-mix(in srgb, var(--realm-color) 20%, var(--bg-dark)) 0%, var(--bg-dark) 100%);
+  background:
+    radial-gradient(
+      ellipse 1000px 800px at 30% 40%,
+      color-mix(in srgb, var(--realm-color) 25%, transparent) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 1000px 800px at 70% 60%,
+      color-mix(in srgb, var(--realm-color) 20%, transparent) 0%,
+      transparent 60%
+    ),
+    var(--bg-dark);
+  background-size: 150% 150%;
+  animation: gradientShift 60s ease-in-out infinite;
 }
 
 .reveal-content {
@@ -405,13 +538,27 @@ body {
 
 /* Registration */
 .registration-container {
+  position: relative;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: var(--spacing-lg);
-  background: radial-gradient(ellipse at center, color-mix(in srgb, var(--realm-color) 15%, var(--bg-dark)) 0%, var(--bg-dark) 100%);
+  background:
+    radial-gradient(
+      ellipse 900px 700px at 40% 45%,
+      color-mix(in srgb, var(--realm-color) 18%, transparent) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 900px 700px at 60% 55%,
+      color-mix(in srgb, var(--realm-color) 15%, transparent) 0%,
+      transparent 55%
+    ),
+    var(--bg-dark);
+  background-size: 180% 180%;
+  animation: gradientShift 70s ease-in-out infinite;
 }
 
 .registration-header {
@@ -520,9 +667,23 @@ body {
 
 /* Results Page */
 .results-page {
+  position: relative;
   min-height: 100vh;
   padding: var(--spacing-lg);
-  background: radial-gradient(ellipse at top, color-mix(in srgb, var(--realm-color) 15%, var(--bg-dark)) 0%, var(--bg-dark) 50%);
+  background:
+    radial-gradient(
+      ellipse 1000px 700px at 50% 20%,
+      color-mix(in srgb, var(--realm-color) 18%, transparent) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse 1000px 700px at 50% 80%,
+      color-mix(in srgb, var(--realm-color) 12%, transparent) 0%,
+      transparent 50%
+    ),
+    var(--bg-dark);
+  background-size: 200% 200%;
+  animation: gradientShift 90s ease-in-out infinite;
 }
 
 .results-header {
@@ -815,6 +976,31 @@ body {
   opacity: 0.8;
 }
 
+/* Accessibility - Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  /* Disable all animations */
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  /* Hide particle containers */
+  .particle-container {
+    display: none;
+  }
+
+  /* Reset background animations */
+  .welcome-page,
+  .quiz-page,
+  .realm-reveal.revealed,
+  .registration-container,
+  .results-page {
+    animation: none;
+    background-size: 100% 100%;
+  }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .welcome-title {
@@ -844,5 +1030,21 @@ body {
   .affinity-name {
     width: 60px;
     font-size: 0.75rem;
+  }
+
+  /* Mobile animation optimizations */
+  :root {
+    --particle-opacity: 0.1;
+    --animation-gradient-duration: 120s;
+  }
+
+  /* Hide particles beyond the 8th for performance */
+  .particle:nth-child(n+9) {
+    display: none;
+  }
+
+  /* Slow down remaining particles */
+  .particle {
+    animation-duration: calc(var(--duration, 30s) * 1.5) !important;
   }
 }

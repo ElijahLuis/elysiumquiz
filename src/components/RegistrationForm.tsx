@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { QuizResult } from '../data/types';
+import { AnimatedBackground } from './AnimatedBackground';
 import { realms } from '../data/realms';
 
 interface RegistrationFormProps {
@@ -29,6 +30,7 @@ export function RegistrationForm({ result, onRegister, onSkip }: RegistrationFor
       className="registration-container"
       style={{ '--realm-color': realm.color } as React.CSSProperties}
     >
+      <AnimatedBackground particleCount={12} density="medium" realmColor={realm.color} />
       <div className="registration-header">
         <h2>Welcome to {realm.name}</h2>
         <p>Enter your name to claim your place in this realm</p>

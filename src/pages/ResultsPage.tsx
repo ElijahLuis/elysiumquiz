@@ -1,4 +1,5 @@
 import type { QuizResult, UserRegistration } from '../data/types';
+import { AnimatedBackground } from '../components/AnimatedBackground';
 import { RealmCard } from '../components/RealmCard';
 import { realms } from '../data/realms';
 import { getRealmTrioInsight } from '../data/trioInsights';
@@ -22,6 +23,7 @@ export function ResultsPage({ result, user, onRestart }: ResultsPageProps) {
       className="results-page"
       style={{ '--realm-color': primaryRealm.color } as React.CSSProperties}
     >
+      <AnimatedBackground particleCount={10} density="medium" realmColor={primaryRealm.color} />
       <div className="results-header">
         {user && <p className="results-greeting">Welcome, {user.displayName}</p>}
         <h1 className="results-title">Your Realm: {primaryRealm.name}</h1>

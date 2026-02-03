@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { QuizResult } from '../data/types';
+import { AnimatedBackground } from './AnimatedBackground';
 import { realms } from '../data/realms';
 
 interface RealmRevealProps {
@@ -21,6 +22,7 @@ export function RealmReveal({ result, onContinue }: RealmRevealProps) {
       className={`realm-reveal ${revealed ? 'revealed' : ''}`}
       style={{ '--realm-color': realm.color } as React.CSSProperties}
     >
+      <AnimatedBackground particleCount={20} density="high" realmColor={realm.color} />
       <div className="reveal-content">
         <div className="reveal-quote">"{realm.quote}"</div>
         <h1 className="reveal-realm-name">{realm.name}</h1>

@@ -1,4 +1,5 @@
 import type { Question } from '../data/types';
+import { AnimatedBackground } from '../components/AnimatedBackground';
 import { ProgressBar } from '../components/ProgressBar';
 import { QuestionCard } from '../components/QuestionCard';
 
@@ -25,6 +26,7 @@ export function QuizPage({
 }: QuizPageProps) {
   return (
     <div className="quiz-page">
+      <AnimatedBackground particleCount={8} density="low" />
       <ProgressBar
         progress={progress}
         currentQuestion={currentIndex}

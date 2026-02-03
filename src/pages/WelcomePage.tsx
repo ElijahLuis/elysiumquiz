@@ -1,3 +1,5 @@
+import { AnimatedBackground } from '../components/AnimatedBackground';
+
 interface WelcomePageProps {
   onStart: () => void;
 }
@@ -5,6 +7,7 @@ interface WelcomePageProps {
 export function WelcomePage({ onStart }: WelcomePageProps) {
   return (
     <div className="welcome-page">
+      <AnimatedBackground particleCount={15} density="medium" />
       <div className="welcome-content">
         <h1 className="welcome-title">Elysium Quiz</h1>
         <p className="welcome-subtitle">Discover Your Realm</p>
