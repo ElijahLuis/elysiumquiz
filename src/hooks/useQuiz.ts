@@ -140,6 +140,7 @@ export function useQuiz() {
     currentQuestionIndex: state.currentQuestionIndex,
     totalQuestions: questions.length,
     progress,
+    answers: state.answers,
     canGoBack: state.currentQuestionIndex > 0,
     result: state.result,
     user: state.user,

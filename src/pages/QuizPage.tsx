@@ -1,6 +1,6 @@
-import type { Question } from '../data/types';
+import type { Question, Answer } from '../data/types';
 import { AnimatedBackground } from '../components/AnimatedBackground';
-import { ProgressBar } from '../components/ProgressBar';
+import { CrystallineOrb } from '../components/CrystallineOrb';
 import { QuestionCard } from '../components/QuestionCard';
 
 interface QuizPageProps {
@@ -8,6 +8,7 @@ interface QuizPageProps {
   currentIndex: number;
   totalQuestions: number;
   progress: number;
+  answers: Answer[];
   canGoBack: boolean;
   onSelectOption: (optionId: string) => void;
   onSelectSlider: (value: number) => void;
@@ -19,6 +20,7 @@ export function QuizPage({
   currentIndex,
   totalQuestions,
   progress,
+  answers,
   canGoBack,
   onSelectOption,
   onSelectSlider,
@@ -27,7 +29,8 @@ export function QuizPage({
   return (
     <div className="quiz-page">
       <AnimatedBackground particleCount={8} density="low" />
-      <ProgressBar
+      <CrystallineOrb
+        answers={answers}
         progress={progress}
         currentQuestion={currentIndex}
         totalQuestions={totalQuestions}
