@@ -1004,10 +1004,17 @@ body {
   .crystalline-orb,
   .crystalline-orb.flowing,
   .crystalline-orb.crystallized,
+  .crystalline-orb.iridescent .orb-core,
+  .crystalline-orb.iridescent .orb-shimmer,
   .orb-core,
   .orb-inner-glow,
-  .orb-shimmer {
+  .orb-shimmer,
+  .orb-sparkle {
     animation: none !important;
+  }
+
+  .orb-sparkle {
+    opacity: 0.6;
   }
 }
 
@@ -1027,12 +1034,43 @@ body {
   margin-bottom: var(--spacing-sm);
 }
 
+.orb-wrapper {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Sparkle container */
+.orb-sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.orb-sparkle {
+  position: absolute;
+  left: var(--sparkle-x);
+  top: var(--sparkle-y);
+  width: var(--sparkle-size);
+  height: var(--sparkle-size);
+  background: var(--sparkle-color);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: sparkleTwinkle 2s ease-in-out infinite;
+  animation-delay: var(--sparkle-delay);
+  box-shadow: 0 0 6px var(--sparkle-color);
+}
+
 .crystalline-orb {
   position: relative;
   width: 80px;
   height: 80px;
   border-radius: 50%;
   transition: all var(--transition-slow);
+  transform: scale(var(--orb-scale, 1));
 }
 
 .crystalline-orb.flowing {
@@ -1041,6 +1079,17 @@ body {
 
 .crystalline-orb.crystallized {
   animation: orbCrystallize 1.5s ease-out forwards;
+  --orb-scale: 1 !important;
+}
+
+/* Iridescent state - cycles through all realm colors */
+.crystalline-orb.iridescent .orb-core {
+  animation: orbCoreRotate 8s linear infinite, iridescentShift 12s ease-in-out infinite;
+  opacity: 0.6;
+}
+
+.crystalline-orb.iridescent .orb-shimmer {
+  animation: orbShimmerRotate 6s linear infinite, iridescentGlow 12s ease-in-out infinite;
 }
 
 /* Core orb - the main colored sphere */
@@ -1197,10 +1246,10 @@ body {
 /* Orb Animations */
 @keyframes orbFloat {
   0%, 100% {
-    transform: translateY(0);
+    transform: scale(var(--orb-scale, 1)) translateY(0);
   }
   50% {
-    transform: translateY(-6px);
+    transform: scale(var(--orb-scale, 1)) translateY(-6px);
   }
 }
 
@@ -1263,6 +1312,45 @@ body {
   }
 }
 
+@keyframes sparkleTwinkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+/* Iridescent color shift - cycles through realm colors */
+@keyframes iridescentShift {
+  0%, 100% {
+    filter: hue-rotate(0deg);
+  }
+  25% {
+    filter: hue-rotate(60deg);
+  }
+  50% {
+    filter: hue-rotate(120deg);
+  }
+  75% {
+    filter: hue-rotate(180deg);
+  }
+}
+
+@keyframes iridescentGlow {
+  0%, 100% {
+    filter: blur(4px) hue-rotate(0deg);
+  }
+  33% {
+    filter: blur(5px) hue-rotate(90deg);
+  }
+  66% {
+    filter: blur(4px) hue-rotate(180deg);
+  }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .welcome-title {
@@ -1311,8 +1399,18 @@ body {
   }
 
   /* Smaller orb on mobile */
+  .orb-wrapper {
+    width: 100px;
+    height: 100px;
+  }
+
   .crystalline-orb {
     width: 65px;
     height: 65px;
+  }
+
+  /* Hide some sparkles on mobile for performance */
+  .orb-sparkle:nth-child(n+4) {
+    display: none;
   }
 }
