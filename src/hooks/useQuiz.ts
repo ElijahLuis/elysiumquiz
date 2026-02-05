@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import type { Answer, QuizResult, QuizStage, SliderQuestion, ChoiceQuestion, RealmKey, UserRegistration } from '../data/types';
+import type { Answer, QuizResult, QuizStage, SliderQuestion, ChoiceQuestion, RealmKey } from '../data/types';
 import { questions } from '../data/questions';
 import { determineResult } from '../utils/scoring';
 
@@ -8,7 +8,6 @@ interface QuizState {
   currentQuestionIndex: number;
   answers: Answer[];
   result: QuizResult | null;
-  user: UserRegistration | null;
 }
 
 export function useQuiz() {
@@ -16,8 +15,7 @@ export function useQuiz() {
     stage: 'welcome',
     currentQuestionIndex: 0,
     answers: [],
-    result: null,
-    user: null
+    result: null
   });
 
   const currentQuestion = questions[state.currentQuestionIndex];
@@ -49,7 +47,7 @@ export function useQuiz() {
           ...prev,
           answers: newAnswers,
           result,
-          stage: 'teaser'
+          stage: 'transitioning'
         };
       }
 
@@ -87,37 +85,7 @@ export function useQuiz() {
     }
   }, [state.currentQuestionIndex]);
 
-  const proceedToRegistration = useCallback(() => {
-    setState(prev => ({
-      ...prev,
-      stage: 'registration'
-    }));
-  }, []);
-
-  const register = useCallback((displayName: string, email?: string) => {
-    if (!state.result) return;
-
-    const user: UserRegistration = {
-      displayName,
-      email,
-      quizResult: state.result,
-      timestamp: new Date()
-    };
-
-    // Save to localStorage
-    const existingUsers = JSON.parse(localStorage.getItem('elysiumUsers') || '[]');
-    existingUsers.push(user);
-    localStorage.setItem('elysiumUsers', JSON.stringify(existingUsers));
-    localStorage.setItem('currentUser', JSON.stringify(user));
-
-    setState(prev => ({
-      ...prev,
-      user,
-      stage: 'results'
-    }));
-  }, [state.result]);
-
-  const skipRegistration = useCallback(() => {
+  const completeTransition = useCallback(() => {
     setState(prev => ({
       ...prev,
       stage: 'results'
@@ -129,8 +97,44 @@ export function useQuiz() {
       stage: 'welcome',
       currentQuestionIndex: 0,
       answers: [],
-      result: null,
-      user: null
+      result: null
+    });
+  }, []);
+
+  // DEBUG: Skip directly to results page with mock data
+  const debugSkipToResults = useCallback((primaryRealm: RealmKey = 'ember') => {
+    const mockScores: Record<RealmKey, number> = {
+      abyss: 5, cavern: 8, dross: 3, ember: 25, glare: 12,
+      languish: 6, mist: 15, oasis: 10, trace: 7, zenith: 9
+    };
+    mockScores[primaryRealm] = 30;
+
+    const sortedRealms = Object.entries(mockScores)
+      .sort(([, a], [, b]) => b - a)
+      .map(([key]) => key as RealmKey);
+
+    const mockResult: QuizResult = {
+      primaryRealm: sortedRealms[0],
+      primaryScore: mockScores[sortedRealms[0]],
+      secondaryRealm: sortedRealms[1],
+      secondaryScore: mockScores[sortedRealms[1]],
+      tertiaryRealm: sortedRealms[2],
+      tertiaryScore: mockScores[sortedRealms[2]],
+      fullScores: mockScores,
+      confidence: 'strong',
+      trio: {
+        key: `${sortedRealms[0]}-${sortedRealms[1]}-${sortedRealms[2]}`,
+        title: 'Debug Trio',
+        insight: 'This is mock data for debugging purposes.'
+      },
+      timestamp: new Date()
+    };
+
+    setState({
+      stage: 'results',
+      currentQuestionIndex: 0,
+      answers: [],
+      result: mockResult
     });
   }, []);
 
@@ -143,14 +147,12 @@ export function useQuiz() {
     answers: state.answers,
     canGoBack: state.currentQuestionIndex > 0,
     result: state.result,
-    user: state.user,
     startQuiz,
     selectOption,
     selectSliderValue,
     goBack,
-    proceedToRegistration,
-    register,
-    skipRegistration,
-    restart
+    completeTransition,
+    restart,
+    debugSkipToResults // DEBUG: Remove later
   };
 }

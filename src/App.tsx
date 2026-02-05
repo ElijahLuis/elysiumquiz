@@ -2,8 +2,7 @@ import { useQuiz } from './hooks/useQuiz';
 import { WelcomePage } from './pages/WelcomePage';
 import { QuizPage } from './pages/QuizPage';
 import { ResultsPage } from './pages/ResultsPage';
-import { RealmReveal } from './components/RealmReveal';
-import { RegistrationForm } from './components/RegistrationForm';
+import { OrbTransition } from './components/OrbTransition';
 import './styles/global.css';
 
 function App() {
@@ -16,19 +15,51 @@ function App() {
     answers,
     canGoBack,
     result,
-    user,
     startQuiz,
     selectOption,
     selectSliderValue,
     goBack,
-    proceedToRegistration,
-    register,
-    skipRegistration,
-    restart
+    completeTransition,
+    restart,
+    debugSkipToResults
   } = useQuiz();
+
+  // DEBUG: Realm options for quick testing
+  const debugRealms = ['ember', 'mist', 'abyss', 'zenith', 'oasis'] as const;
 
   return (
     <div className="app">
+      {/* DEBUG: Quick navigation links - Remove later */}
+      <div style={{
+        position: 'fixed',
+        top: 10,
+        left: 10,
+        zIndex: 9999,
+        background: 'rgba(0,0,0,0.8)',
+        padding: '8px 12px',
+        borderRadius: 8,
+        fontSize: 12
+      }}>
+        <span style={{ color: '#888', marginRight: 8 }}>DEBUG:</span>
+        {debugRealms.map(realm => (
+          <button
+            key={realm}
+            onClick={() => debugSkipToResults(realm)}
+            style={{
+              marginRight: 6,
+              padding: '4px 8px',
+              background: '#333',
+              color: '#fff',
+              border: 'none',
+              borderRadius: 4,
+              cursor: 'pointer'
+            }}
+          >
+            {realm}
+          </button>
+        ))}
+      </div>
+
       {stage === 'welcome' && (
         <WelcomePage onStart={startQuiz} />
       )}
@@ -47,25 +78,16 @@ function App() {
         />
       )}
 
-      {stage === 'teaser' && result && (
-        <RealmReveal
+      {stage === 'transitioning' && result && (
+        <OrbTransition
           result={result}
-          onContinue={proceedToRegistration}
-        />
-      )}
-
-      {stage === 'registration' && result && (
-        <RegistrationForm
-          result={result}
-          onRegister={register}
-          onSkip={skipRegistration}
+          onComplete={completeTransition}
         />
       )}
 
       {stage === 'results' && result && (
         <ResultsPage
           result={result}
-          user={user}
           onRestart={restart}
         />
       )}

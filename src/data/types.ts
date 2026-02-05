@@ -82,4 +82,4 @@ export interface UserRegistration {
   timestamp: Date;
 }
 
-export type QuizStage = 'welcome' | 'quiz' | 'teaser' | 'registration' | 'results';
+export type QuizStage = 'welcome' | 'quiz' | 'transitioning' | 'results';
