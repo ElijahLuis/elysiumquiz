@@ -1,4 +1,4 @@
-import type { QuizResult, UserRegistration } from '../data/types';
+import type { QuizResult } from '../data/types';
 import { AnimatedBackground } from '../components/AnimatedBackground';
 import { RealmCard } from '../components/RealmCard';
 import { realms } from '../data/realms';
@@ -6,11 +6,10 @@ import { getRealmTrioInsight } from '../data/trioInsights';
 
 interface ResultsPageProps {
   result: QuizResult;
-  user: UserRegistration | null;
   onRestart: () => void;
 }
 
-export function ResultsPage({ result, user, onRestart }: ResultsPageProps) {
+export function ResultsPage({ result, onRestart }: ResultsPageProps) {
   const primaryRealm = realms[result.primaryRealm];
   const trioInsight = getRealmTrioInsight(
     result.primaryRealm,
@@ -29,7 +28,6 @@ export function ResultsPage({ result, user, onRestart }: ResultsPageProps) {
       <AnimatedBackground particleCount={10} density="medium" realmColor={primaryRealm.color} />
 
       <div className="results-header">
-        {user && <p className="results-greeting">Welcome, {user.displayName}</p>}
         <h1 className="results-title">Your Realm: {primaryRealm.name}</h1>
       </div>
 
@@ -64,6 +62,9 @@ export function ResultsPage({ result, user, onRestart }: ResultsPageProps) {
           <div className="results-insights">
             <h3 className="insights-label">Your Title:</h3>
             <h2 className="insights-title">{trioInsight.title}</h2>
+            <p className="insights-realms">
+              {realms[result.primaryRealm].name} — {realms[result.secondaryRealm].name} — {realms[result.tertiaryRealm].name}
+            </p>
             <p className="insights-text">{trioInsight.insight}</p>
 
             <div className="insights-grid">

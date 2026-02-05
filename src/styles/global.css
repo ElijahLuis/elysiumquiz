@@ -427,210 +427,6 @@ body {
   color: var(--text-primary);
 }
 
-/* Realm Reveal */
-.realm-reveal {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--spacing-lg);
-  background: var(--bg-dark);
-  opacity: 0;
-  transition: opacity var(--transition-slow);
-}
-
-.realm-reveal.revealed {
-  position: relative;
-  opacity: 1;
-  background:
-    radial-gradient(
-      ellipse 1000px 800px at 30% 40%,
-      color-mix(in srgb, var(--realm-color) 25%, transparent) 0%,
-      transparent 60%
-    ),
-    radial-gradient(
-      ellipse 1000px 800px at 70% 60%,
-      color-mix(in srgb, var(--realm-color) 20%, transparent) 0%,
-      transparent 60%
-    ),
-    var(--bg-dark);
-  background-size: 150% 150%;
-  animation: gradientShift 60s ease-in-out infinite;
-}
-
-.reveal-content {
-  text-align: center;
-  max-width: 500px;
-}
-
-.reveal-quote {
-  font-style: italic;
-  color: var(--text-secondary);
-  margin-bottom: var(--spacing-md);
-  font-size: 1.2rem;
-}
-
-.reveal-realm-name {
-  font-family: var(--font-display);
-  font-size: 4rem;
-  font-weight: 700;
-  color: var(--realm-color);
-  margin-bottom: var(--spacing-sm);
-  text-shadow: 0 0 40px var(--realm-color);
-}
-
-.reveal-confidence {
-  color: var(--text-muted);
-  margin-bottom: var(--spacing-xl);
-  font-size: 1rem;
-}
-
-.reveal-continue {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  padding: var(--spacing-sm) var(--spacing-xl);
-  background: var(--realm-color);
-  border: none;
-  border-radius: 50px;
-  color: var(--bg-dark);
-  cursor: pointer;
-  transition: all var(--transition-normal);
-}
-
-.reveal-continue:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 30px var(--realm-color);
-}
-
-/* Registration */
-.registration-container {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: var(--spacing-lg);
-  background:
-    radial-gradient(
-      ellipse 900px 700px at 40% 45%,
-      color-mix(in srgb, var(--realm-color) 18%, transparent) 0%,
-      transparent 55%
-    ),
-    radial-gradient(
-      ellipse 900px 700px at 60% 55%,
-      color-mix(in srgb, var(--realm-color) 15%, transparent) 0%,
-      transparent 55%
-    ),
-    var(--bg-dark);
-  background-size: 180% 180%;
-  animation: gradientShift 70s ease-in-out infinite;
-}
-
-.registration-header {
-  text-align: center;
-  margin-bottom: var(--spacing-xl);
-}
-
-.registration-header h2 {
-  font-family: var(--font-display);
-  font-size: 2rem;
-  color: var(--realm-color);
-  margin-bottom: var(--spacing-xs);
-}
-
-.registration-header p {
-  color: var(--text-secondary);
-}
-
-.registration-form {
-  width: 100%;
-  max-width: 400px;
-}
-
-.form-group {
-  margin-bottom: var(--spacing-md);
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: var(--spacing-xs);
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-}
-
-.form-group input {
-  width: 100%;
-  padding: var(--spacing-sm);
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  color: var(--text-primary);
-  font-family: var(--font-body);
-  font-size: 1rem;
-  transition: border-color var(--transition-fast);
-}
-
-.form-group input:focus {
-  outline: none;
-  border-color: var(--realm-color);
-}
-
-.form-group input::placeholder {
-  color: var(--text-muted);
-}
-
-.form-error {
-  color: var(--ember);
-  font-size: 0.85rem;
-  margin-top: var(--spacing-xs);
-}
-
-.form-hint {
-  color: var(--text-muted);
-  font-size: 0.8rem;
-  margin-top: var(--spacing-xs);
-}
-
-.registration-actions {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-sm);
-  margin-top: var(--spacing-lg);
-}
-
-.register-button {
-  width: 100%;
-  padding: var(--spacing-sm);
-  background: var(--realm-color);
-  border: none;
-  border-radius: 8px;
-  color: var(--bg-dark);
-  font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.register-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-.skip-button {
-  background: transparent;
-  border: none;
-  color: var(--text-muted);
-  font-family: var(--font-body);
-  cursor: pointer;
-  transition: color var(--transition-fast);
-}
-
-.skip-button:hover {
-  color: var(--text-primary);
-}
-
 /* Results Page */
 .results-page {
   position: relative;
@@ -904,7 +700,15 @@ body {
   font-size: 1.8rem;
   font-weight: 700;
   color: var(--realm-color);
+  margin-bottom: var(--spacing-xs);
+}
+
+.insights-realms {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text-secondary);
   margin-bottom: var(--spacing-sm);
+  letter-spacing: 0.02em;
 }
 
 .insights-text {
@@ -997,8 +801,6 @@ body {
   /* Reset background animations */
   .welcome-page,
   .quiz-page,
-  .realm-reveal.revealed,
-  .registration-container,
   .results-page {
     animation: none;
     background-size: 100% 100%;
@@ -1352,6 +1154,199 @@ body {
   }
   66% {
     filter: blur(4px) hue-rotate(180deg);
+  }
+}
+
+/* ===== Orb Expansion Transition ===== */
+
+.orb-transition-container {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-dark);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.orb-transition {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orb-transition-core {
+  position: absolute;
+  inset: 15%;
+  border-radius: 50%;
+  background: var(--realm-color);
+  box-shadow:
+    0 0 30px var(--realm-color),
+    0 0 60px color-mix(in srgb, var(--realm-color) 50%, transparent);
+}
+
+.orb-transition-glow {
+  position: absolute;
+  inset: -20%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    transparent 30%,
+    color-mix(in srgb, var(--realm-color) 40%, transparent) 60%,
+    transparent 100%
+  );
+  filter: blur(10px);
+}
+
+/* Phase 1: Crystallize - orb pulses and settles */
+.orb-transition--crystallize {
+  animation: orbTransitionCrystallize 0.8s ease-out forwards;
+}
+
+.orb-transition--crystallize .orb-transition-core {
+  animation: orbCoreIntensify 0.8s ease-out forwards;
+}
+
+@keyframes orbTransitionCrystallize {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.15);
+  }
+  70% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes orbCoreIntensify {
+  0% {
+    box-shadow:
+      0 0 30px var(--realm-color),
+      0 0 60px color-mix(in srgb, var(--realm-color) 50%, transparent);
+  }
+  100% {
+    box-shadow:
+      0 0 50px var(--realm-color),
+      0 0 100px color-mix(in srgb, var(--realm-color) 70%, transparent),
+      0 0 150px color-mix(in srgb, var(--realm-color) 40%, transparent);
+  }
+}
+
+/* Phase 2: Expand - orb grows to fill screen */
+.orb-transition--expand {
+  animation: orbTransitionExpand 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.orb-transition--expand .orb-transition-core {
+  animation: orbCoreExpand 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.orb-transition--expand .orb-transition-glow {
+  animation: orbGlowExpand 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes orbTransitionExpand {
+  0% {
+    transform: scale(1);
+    border-radius: 50%;
+  }
+  100% {
+    transform: scale(40);
+    border-radius: 0%;
+  }
+}
+
+@keyframes orbCoreExpand {
+  0% {
+    inset: 15%;
+    border-radius: 50%;
+  }
+  100% {
+    inset: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+@keyframes orbGlowExpand {
+  0% {
+    opacity: 1;
+    inset: -20%;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    inset: 0;
+  }
+}
+
+/* Phase 3: Fade - transition to results background */
+.orb-transition--fade {
+  animation: none;
+  transform: scale(40);
+}
+
+.orb-transition--fade .orb-transition-core {
+  inset: 0;
+  border-radius: 0;
+  box-shadow: none;
+  animation: orbCoreFadeToBackground 0.6s ease-out forwards;
+}
+
+.orb-transition--fade .orb-transition-glow {
+  opacity: 0;
+}
+
+@keyframes orbCoreFadeToBackground {
+  0% {
+    background: var(--realm-color);
+  }
+  100% {
+    background: radial-gradient(
+      ellipse 100% 100% at 50% 50%,
+      color-mix(in srgb, var(--realm-color) 18%, var(--bg-dark)) 0%,
+      var(--bg-dark) 100%
+    );
+  }
+}
+
+/* Reduced motion for orb transition */
+@media (prefers-reduced-motion: reduce) {
+  .orb-transition--crystallize,
+  .orb-transition--expand,
+  .orb-transition--fade,
+  .orb-transition--crystallize .orb-transition-core,
+  .orb-transition--expand .orb-transition-core,
+  .orb-transition--expand .orb-transition-glow,
+  .orb-transition--fade .orb-transition-core {
+    animation: none !important;
+  }
+
+  .orb-transition--expand,
+  .orb-transition--fade {
+    transform: scale(40);
+  }
+
+  .orb-transition--expand .orb-transition-core,
+  .orb-transition--fade .orb-transition-core {
+    inset: 0;
+    border-radius: 0;
+  }
+
+  .orb-transition--expand .orb-transition-glow,
+  .orb-transition--fade .orb-transition-glow {
+    opacity: 0;
   }
 }
 
