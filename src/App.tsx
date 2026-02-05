@@ -13,6 +13,7 @@ function App() {
     currentQuestionIndex,
     totalQuestions,
     progress,
+    answers,
     canGoBack,
     result,
     user,
@@ -38,6 +39,7 @@ function App() {
           currentIndex={currentQuestionIndex}
           totalQuestions={totalQuestions}
           progress={progress}
+          answers={answers}
           canGoBack={canGoBack}
           onSelectOption={selectOption}
           onSelectSlider={selectSliderValue}
