@@ -1,16 +1,10 @@
 /* CSS Variables */
 :root {
-  /* Realm colors */
-  --abyss: #bf9dff;
-  --cavern: #9ef2e3;
-  --dross: #f0c9b3;
-  --ember: #ffb194;
-  --glare: #ffd96a;
-  --languish: #86bfff;
-  --mist: #cfe8f8;
+  /* Realm colors (used in UI accents) */
   --oasis: #76ffe5;
+  --mist: #cfe8f8;
   --trace: #ffa3c0;
-  --zenith: #ffeba3;
+  --ember: #ffb194;
 
   /* Base colors */
   --bg-dark: #0a0a0f;
@@ -188,34 +182,6 @@ body {
     var(--bg-dark);
   background-size: 250% 250%;
   animation: gradientShift 100s ease-in-out infinite;
-}
-
-/* Progress Bar */
-.progress-container {
-  width: 100%;
-  max-width: 600px;
-  margin-bottom: var(--spacing-xl);
-}
-
-.progress-text {
-  text-align: center;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  margin-bottom: var(--spacing-xs);
-}
-
-.progress-bar {
-  height: 4px;
-  background: var(--bg-elevated);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--oasis), var(--mist));
-  border-radius: 2px;
-  transition: width var(--transition-normal);
 }
 
 /* Question Card */
@@ -702,9 +668,32 @@ body {
   color: var(--realm-color);
 }
 
-.results-cards {
-  max-width: 800px;
-  margin: 0 auto var(--spacing-xl);
+/* Dashboard Layout */
+.results-dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-lg);
+  max-width: 1200px;
+  margin: 0 auto var(--spacing-lg);
+  align-items: start;
+}
+
+.dashboard-left,
+.dashboard-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-right {
+  height: 100%;
+}
+
+.dashboard-right .results-insights {
+  margin: 0;
+  padding: var(--spacing-md);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Realm Cards */
@@ -911,18 +900,24 @@ body {
 }
 
 .insights-text {
-  font-size: 1.2rem;
-  line-height: 1.8;
+  font-size: 1.1rem;
+  line-height: 1.7;
   color: var(--text-primary);
-  max-width: 600px;
-  margin: 0 auto;
+  margin: 0 auto var(--spacing-md);
+}
+
+/* Insights Grid - Side by side strengths/challenges */
+.insights-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-sm);
+  margin-top: auto;
 }
 
 /* Results Insights Sections */
 .insights-strengths,
 .insights-challenges {
-  margin-top: var(--spacing-lg);
-  padding: var(--spacing-md);
+  padding: var(--spacing-sm);
   background: var(--bg-elevated);
   border-radius: 12px;
 }
@@ -1069,7 +1064,7 @@ body {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  transition: all var(--transition-slow);
+  transition: transform var(--transition-slow);
   transform: scale(var(--orb-scale, 1));
 }
 
@@ -1239,7 +1234,7 @@ body {
   stroke: var(--orb-color-1);
   stroke-width: 2.5;
   stroke-linecap: round;
-  transition: stroke-dashoffset var(--transition-normal), stroke var(--transition-normal);
+  transition: stroke-dashoffset var(--transition-normal);
   filter: drop-shadow(0 0 4px var(--orb-color-1));
 }
 
