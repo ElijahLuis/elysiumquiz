@@ -654,7 +654,7 @@ body {
 
 .results-header {
   text-align: center;
-  margin-bottom: var(--spacing-xl);
+  margin-bottom: var(--spacing-md);
 }
 
 .results-greeting {
@@ -664,7 +664,7 @@ body {
 
 .results-title {
   font-family: var(--font-display);
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: var(--realm-color);
 }
 
@@ -684,16 +684,9 @@ body {
   flex-direction: column;
 }
 
-.dashboard-right {
-  height: 100%;
-}
-
 .dashboard-right .results-insights {
   margin: 0;
   padding: var(--spacing-md);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
 }
 
 /* Realm Cards */
@@ -800,24 +793,37 @@ body {
 
 /* Affinity Chart */
 .results-affinity {
-  max-width: 600px;
-  margin: 0 auto var(--spacing-xl);
+  max-width: 900px;
+  margin: 0 auto var(--spacing-lg);
   background: var(--bg-card);
   border-radius: 16px;
-  padding: var(--spacing-lg);
+  padding: var(--spacing-md);
 }
 
 .results-affinity h3 {
   font-family: var(--font-display);
-  font-size: 1.2rem;
-  margin-bottom: var(--spacing-md);
+  font-size: 1.1rem;
+  margin-bottom: var(--spacing-sm);
   color: var(--text-primary);
+  text-align: center;
+}
+
+.affinity-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+}
+
+.affinity-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
 }
 
 .affinity-bars {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-xs);
 }
 
 .affinity-row {
@@ -876,14 +882,16 @@ body {
 /* Results Insights */
 .results-insights {
   max-width: 700px;
-  margin: var(--spacing-xl) auto;
-  padding: var(--spacing-lg);
+  margin: 0 auto;
+  padding: var(--spacing-md);
   text-align: center;
+  background: var(--bg-card);
+  border-radius: 16px;
 }
 
 .insights-label {
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-weight: 400;
   color: var(--text-secondary);
   margin-bottom: var(--spacing-xs);
@@ -893,10 +901,10 @@ body {
 
 .insights-title {
   font-family: var(--font-display);
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   font-weight: 700;
   color: var(--realm-color);
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
 }
 
 .insights-text {
@@ -911,7 +919,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--spacing-sm);
-  margin-top: auto;
+  margin-top: var(--spacing-md);
 }
 
 /* Results Insights Sections */
@@ -923,24 +931,25 @@ body {
 }
 
 .insights-section-title {
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
   color: var(--text-primary);
 }
 
 .insights-list {
   list-style: none;
   padding-left: 0;
+  margin: 0;
 }
 
 .insights-list li {
-  padding: var(--spacing-xs) 0;
+  padding: 2px 0;
   padding-left: var(--spacing-sm);
   position: relative;
   color: var(--text-secondary);
-  font-size: 0.95rem;
-  line-height: 1.6;
+  font-size: 0.85rem;
+  line-height: 1.5;
   text-align: left;
 }
 
@@ -1369,7 +1378,27 @@ body {
   }
 
   .insights-text {
-    font-size: 1.1rem;
+    font-size: 1rem;
+  }
+
+  /* Dashboard collapses to single column on mobile */
+  .results-dashboard {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .dashboard-right .results-insights {
+    text-align: center;
+  }
+
+  .insights-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+  }
+
+  .affinity-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
   }
 
   .affinity-name {

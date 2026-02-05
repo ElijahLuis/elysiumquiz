@@ -18,75 +18,87 @@ export function ResultsPage({ result, user, onRestart }: ResultsPageProps) {
     result.tertiaryRealm
   );
 
+  const sortedScores = Object.entries(result.fullScores)
+    .sort(([, a], [, b]) => b - a);
+
   return (
     <div
       className="results-page"
       style={{ '--realm-color': primaryRealm.color } as React.CSSProperties}
     >
       <AnimatedBackground particleCount={10} density="medium" realmColor={primaryRealm.color} />
+
       <div className="results-header">
         {user && <p className="results-greeting">Welcome, {user.displayName}</p>}
         <h1 className="results-title">Your Realm: {primaryRealm.name}</h1>
       </div>
 
-      <div className="results-cards">
-        <RealmCard
-          realmKey={result.primaryRealm}
-          score={result.primaryScore}
-          variant="primary"
-        />
+      <div className="results-dashboard">
+        {/* Left Column: Realm Cards */}
+        <div className="dashboard-left">
+          <RealmCard
+            realmKey={result.primaryRealm}
+            score={result.primaryScore}
+            variant="primary"
+          />
 
-        <div className="secondary-realms">
-          <h3 className="secondary-title">Also resonating with you:</h3>
-          <div className="secondary-cards">
-            <RealmCard
-              realmKey={result.secondaryRealm}
-              score={result.secondaryScore}
-              variant="secondary"
-            />
-            <RealmCard
-              realmKey={result.tertiaryRealm}
-              score={result.tertiaryScore}
-              variant="tertiary"
-            />
+          <div className="secondary-realms">
+            <h3 className="secondary-title">Also resonating with you:</h3>
+            <div className="secondary-cards">
+              <RealmCard
+                realmKey={result.secondaryRealm}
+                score={result.secondaryScore}
+                variant="secondary"
+              />
+              <RealmCard
+                realmKey={result.tertiaryRealm}
+                score={result.tertiaryScore}
+                variant="tertiary"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Insights */}
+        <div className="dashboard-right">
+          <div className="results-insights">
+            <h3 className="insights-label">Your Title:</h3>
+            <h2 className="insights-title">{trioInsight.title}</h2>
+            <p className="insights-text">{trioInsight.insight}</p>
+
+            <div className="insights-grid">
+              {trioInsight.strengths && trioInsight.strengths.length > 0 && (
+                <div className="insights-strengths">
+                  <h4 className="insights-section-title">Your Strengths</h4>
+                  <ul className="insights-list">
+                    {trioInsight.strengths.map((strength, i) => (
+                      <li key={i}>{strength}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {trioInsight.challenges && trioInsight.challenges.length > 0 && (
+                <div className="insights-challenges">
+                  <h4 className="insights-section-title">Challenges to Navigate</h4>
+                  <ul className="insights-list">
+                    {trioInsight.challenges.map((challenge, i) => (
+                      <li key={i}>{challenge}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="results-insights">
-        <h3 className="insights-label">Your Title:</h3>
-        <h2 className="insights-title">{trioInsight.title}</h2>
-        <p className="insights-text">{trioInsight.insight}</p>
-        
-        {trioInsight.strengths && trioInsight.strengths.length > 0 && (
-          <div className="insights-strengths">
-            <h4 className="insights-section-title">Your Strengths</h4>
-            <ul className="insights-list">
-              {trioInsight.strengths.map((strength, i) => (
-                <li key={i}>{strength}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-        
-        {trioInsight.challenges && trioInsight.challenges.length > 0 && (
-          <div className="insights-challenges">
-            <h4 className="insights-section-title">Challenges to Navigate</h4>
-            <ul className="insights-list">
-              {trioInsight.challenges.map((challenge, i) => (
-                <li key={i}>{challenge}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
-
+      {/* Bottom Section: Affinity Chart */}
       <div className="results-affinity">
         <h3>Your Emotional Landscape</h3>
-        <div className="affinity-bars">
-          {Object.entries(result.fullScores)
-            .sort(([, a], [, b]) => b - a)
-            .map(([key, score]) => (
+        <div className="affinity-grid">
+          <div className="affinity-column">
+            {sortedScores.slice(0, 5).map(([key, score]) => (
               <div key={key} className="affinity-row">
                 <span className="affinity-name">{realms[key as keyof typeof realms].name}</span>
                 <div className="affinity-bar-container">
@@ -101,6 +113,24 @@ export function ResultsPage({ result, user, onRestart }: ResultsPageProps) {
                 <span className="affinity-score">{score}%</span>
               </div>
             ))}
+          </div>
+          <div className="affinity-column">
+            {sortedScores.slice(5, 10).map(([key, score]) => (
+              <div key={key} className="affinity-row">
+                <span className="affinity-name">{realms[key as keyof typeof realms].name}</span>
+                <div className="affinity-bar-container">
+                  <div
+                    className="affinity-bar"
+                    style={{
+                      width: `${score}%`,
+                      background: realms[key as keyof typeof realms].color
+                    }}
+                  />
+                </div>
+                <span className="affinity-score">{score}%</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
